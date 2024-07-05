@@ -11,3 +11,11 @@ app.get('/', (req, res) => {
         mensaje:'Todo ok'
     })
 })
+
+app.post('/', (req, res) => {
+    const response = req.body
+
+    res.json({
+        mensaje: 'Post recibido'
+    })
+})
