@@ -8,7 +8,7 @@ app.listen(8080, () => {
 
 app.get('/', (req, res) => {
     res.status(201).json({
-        mensaje:'Todo ok'
+        mensaje:'Prueba GET'
     })
 })
 
@@ -16,6 +16,7 @@ app.post('/', (req, res) => {
     const response = req.body
 
     res.json({
-        mensaje: 'Post recibido'
+        ...response,
+        mensaje: 'Prueba POST'
     })
 })
