@@ -1,9 +1,21 @@
 import { Router } from "express";
+import fs from 'node:fs';
+
 
 const router = Router();
 
+let cartDB = [];
+let cartID = 0;
+
 router.get('/', (req, res) => {
     res.status(200).json({
+        payload: [...DB],
+        mensaje:'Prueba GET'
+    })
+})
+router.get('/:cartID', (req, res) => {
+    res.status(200).json({
+        payload: [...DB],
         mensaje:'Prueba GET'
     })
 })
@@ -16,11 +28,11 @@ router.post('/', (req, res) => {
         mensaje: 'Prueba POST Cart'
     })
 })
-router.put('/:id', (req, res) => {
+router.put('/:cartID', (req, res) => {
 
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:cartID', (req, res) => {
 
 })
 

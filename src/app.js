@@ -14,5 +14,3 @@ app.use(express.json()); //body-parse
 app.use('/api/product',  ProductRoute);
 app.use('/api/cart',  CartRoute);
 
-
-
