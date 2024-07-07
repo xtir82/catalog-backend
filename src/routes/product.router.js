@@ -19,9 +19,11 @@ router.get('/:productId', async (req, res) => {
     const { productId } = req.params;
 
     const productFound = await productManager.getProductById(productId);
+    console.log(productFound)
 
     res.status(201).json({
-        mensaje:'Se ha agregado el Producto'
+        mensaje:'Se ha agregado el Producto',
+        producto: productFound,
     })
 })
 
@@ -29,13 +31,13 @@ router.post('/', async (req,res) => {
     const productToAdd = req.body;
     await productManager.addProduct(productToAdd);
 
-    //id, title, description, code, price, status, stock, category, thumbsnails
-
     res.status(201).json({
         mensaje: 'Prueba POST Producto'
     })
 })
 
+
+//Por Validar
 router.put('/:id', (req, res) => {
     const productToAdd = req.body;
     console.log(productToAdd)

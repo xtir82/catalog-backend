@@ -2,18 +2,19 @@ import { Router } from "express";
 import CartManager from "../Class/cartManager.js";
 import { __dirname } from "../utils.js";
 
-
 const router = Router();
 
-let cartDB = [];
-let cartID = 0;
+const cartManager = new CartManager(__dirname + '/data/cart.json');
 
-router.get('/', (req, res) => {
+//Rutas
+router.get('/', async (req,res) => {
+    const respuesta = await cartManager.getCarts();
     res.status(200).json({
-        payload: [...DB],
-        mensaje:'Prueba GET'
+        mensaje:'Lista de Carritos Obtenida',
+        respuesta: respuesta
     })
 })
+
 router.get('/:cartID', (req, res) => {
     res.status(200).json({
         payload: [...DB],
@@ -29,12 +30,11 @@ router.post('/', (req, res) => {
         mensaje: 'Prueba POST Cart'
     })
 })
-router.put('/:cartID', (req, res) => {
 
+router.put('/:cartID', (req, res) => {
 })
 
 router.delete('/:cartID', (req, res) => {
-
 })
 
 export default router;

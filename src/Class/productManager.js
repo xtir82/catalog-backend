@@ -29,13 +29,15 @@ class ProductManager {
 
     async getProductById(productId) {
         await this.getProducts()
+        productId = Number(productId) //Convertimos el queryparams de string a number
         const productFound = this.dbProduct.find(product => product.id === productId)
+        console.log()
         return productFound;
     }
 
     async addProduct(product) {
         await this.getProducts();
-        this.prodId++
+        this.prodId++;
         const newProduct = this.productFactory(this.prodId, product)
         this.dbProduct.push(newProduct)
         await fs.promises.writeFile(this.path, JSON.stringify({data: this.dbProduct })); 

@@ -6,22 +6,28 @@ class CartManager {
         this.dbCart = [];
     }
 
-    async getProducts() {
+    cartFactory(id, {cart}) {
+        id,
+        productArray,
+        quantity
+    } 
+
+    async getCarts() {
         const list = await fs.promises.readFile(this.path, 'utf-8')
-        this.dbProduct = [... JSON.parse(list).data]
-        return [... this.dbProduct]
+        this.dbCart = [... JSON.parse(list).data]
+        return [... this.dbCart]
     }
 
-    async getProductById(productId) {
-        await this.getProducts()
-        const productFound = this.dbProduct.find(product => prod.id === productId)
+    async getCartById(cartId) {
+        await this.getCarts()
+        const productFound = this.dbCart.find(cart => cart.id === cartId)
         return productFound;
     }
 
-    async addProduct(product) {
-        await this.getProducts();
-        this.dbProduct.push(product)
-        await fs.promises.writeFile(this.path, JSON.stringify({data: this.dbProduct })); 
+    async addCart(cart) {
+        await this.getCarts();
+        this.dbCart.push(cart)
+        await fs.promises.writeFile(this.path, JSON.stringify({data: this.dbCart })); 
     }
 }
 
