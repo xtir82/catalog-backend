@@ -1,44 +1,51 @@
 import { Router } from "express";
-import fs from 'node:fs';
+import ProductManager from "../Class/productManager.js";
+import { __dirname } from "../utils.js";
 
 const router = Router();
 
-let productDB = [];
-let productID = 0;
+const productManager = new ProductManager(__dirname + '/data/product.json');
 
-async function getFile(){
-    const infoFile = await fs.promises.readFile('./src/public/product.json', 'utf-8')
-    productDB.push(JSON.parse(infoFile));
-}
-getFile();
-
-router.get('/', (req, res) => {
-    getFile()
+//Rutas
+router.get('/', async (req,res) => {
+    const respuesta = await productManager.getProducts();
     res.status(200).json({
-        payload: [...productDB],
-        mensaje:'Prueba GET'
+        mensaje:'Lista de Productos Obtenida',
+        respuesta: respuesta
     })
 })
 
-router.get('/:productId', (req, res) => {
-    res.status(200).json({
-        payload: [...productDB],
-        mensaje:'Prueba GET'
+router.get('/:productId', async (req, res) => {
+    const { productId } = req.params;
+
+    const productFound = await productManager.getProductById(productId);
+
+    res.status(201).json({
+        mensaje:'Se ha agregado el Producto'
     })
 })
 
-router.post('/', (req, res) => {
-    const response = req.body
+router.post('/', async (req,res) => {
+    const productToAdd = req.body;
+    await productManager.addProduct(productToAdd);
 
     //id, title, description, code, price, status, stock, category, thumbsnails
 
     res.status(201).json({
-        ...response,
         mensaje: 'Prueba POST Producto'
     })
 })
-router.put('/:id', (req, res) => {
 
+router.put('/:id', (req, res) => {
+    const productToAdd = req.body;
+    console.log(productToAdd)
+    //await productManager.addProduct(productToAdd);
+
+    //id, title, description, code, price, status, stock, category, thumbsnails
+
+    res.status(201).json({
+        mensaje: 'Prueba POST Producto'
+    })
 })
 
 router.delete('/:id', (req, res) => {
