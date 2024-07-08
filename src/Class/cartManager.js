@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 
 class CartManager {
+cartId = 0;
+
     constructor(path) {
         this.path = path;
         this.dbCart = [];

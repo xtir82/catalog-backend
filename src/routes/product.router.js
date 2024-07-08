@@ -16,10 +16,8 @@ router.get('/', async (req,res) => {
 })
 
 router.get('/:productId', async (req, res) => {
-    const { productId } = req.params;
-
+    const productId = parseInt(req.params.productId); //Convertimos el queryparams de string a number
     const productFound = await productManager.getProductById(productId);
-    console.log(productFound)
 
     res.status(201).json({
         mensaje:'Se ha agregado el Producto',
@@ -30,20 +28,24 @@ router.get('/:productId', async (req, res) => {
 router.post('/', async (req,res) => {
     const productToAdd = req.body;
     await productManager.addProduct(productToAdd);
-
     res.status(201).json({
         mensaje: 'Prueba POST Producto'
     })
 })
 
-
-//Por Validar
-router.put('/:id', (req, res) => {
-    const productToAdd = req.body;
-    console.log(productToAdd)
-    //await productManager.addProduct(productToAdd);
-
-    //id, title, description, code, price, status, stock, category, thumbsnails
+router.put('/:productId', async (req, res) => {
+    const productToEdit = parseInt(req.params.productId);
+    const productReplacement = {
+        id: productToEdit,
+        title: req.body.title,
+        description: req.body.description,
+        code: req.body.code,
+        price: req.body.price,
+        status: req.body.status,
+        stock: req.body.stock,
+        category: req.body.category
+    }
+    await productManager.editProduct(productReplacement);
 
     res.status(201).json({
         mensaje: 'Prueba POST Producto'
