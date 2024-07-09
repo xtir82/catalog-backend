@@ -4,7 +4,7 @@ import { __dirname } from "../utils.js";
 
 const router = Router();
 
-const productManager = new ProductManager(__dirname + '/data/product.json');
+export const productManager = new ProductManager(__dirname + '/data/product.json');
 
 //Rutas
 router.get('/', async (req,res) => {

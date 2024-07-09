@@ -15,18 +15,32 @@ router.get('/', async (req,res) => {
     })
 })
 
-router.get('/:cartID', (req, res) => {
+router.get('/:cartID', async (req, res) => {
+    const cartId = parseInt(req.params.cartID); //Convertimos el queryparams de string a number
+    const cartFound = await cartManager.getCartById(cartId);
+
     res.status(200).json({
-        payload: [...DB],
-        mensaje:'Prueba GET'
+        mensaje:`Carrito con el id ${cartId}`,
+        producto: cartFound,
     })
 })
 
-router.post('/', (req, res) => {
-    const response = req.body
+router.post('/', async (req, res) => {
+    await cartManager.addCart();
 
     res.status(201).json({
-        ...response,
+        mensaje: 'Prueba POST Cart'
+    })
+})
+
+router.post('/:cartId/product/:productId', async (req, res) => {
+    const cartId = parseInt(req.params.cartId); //Convertimos el queryparams de string a number
+    const productId = parseInt(req.params.productId);
+    const quantity = req.body.quantity;
+
+    await cartManager.addProductToCart(cartId, productId, quantity);
+
+    res.status(201).json({
         mensaje: 'Prueba POST Cart'
     })
 })

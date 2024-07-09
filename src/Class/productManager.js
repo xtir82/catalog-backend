@@ -28,7 +28,7 @@ class ProductManager {
     async getProductById(productId) {
         await this.getProducts();
         const productFound = this.dbProduct.find(product => product.id === productId)
-
+        
         return productFound;
     }
 
@@ -54,7 +54,6 @@ class ProductManager {
         this.dbProduct[searchIndex].status = false //Se cambia el status del producto a false para que no quede activo.
         await fs.promises.writeFile(this.path, JSON.stringify({data: this.dbProduct }));
     }
-
 }
 
 export default ProductManager;
