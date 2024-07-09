@@ -1,1 +1,1 @@
-{"data":[{"id":1,"title":"Pollo Frito","description":"Pollo frito para freidora de aire","code":123123,"price":6,"status":true,"stock":40,"category":"Food"},{"id":2,"title":"Papas Fritas","description":"Papas Fritas para freidora de Aire","code":4252345353,"price":10,"status":true,"stock":20,"category":"Food"}]}
+{"data":[{"id":1,"title":"Pollo Frito","description":"Pollo frito para freidora de aire","code":123123,"price":6,"status":false,"stock":40,"category":"Food"}]}

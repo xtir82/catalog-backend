@@ -43,9 +43,16 @@ class ProductManager {
     async editProduct(product) {
         await this.getProducts();
         const searchIndex = this.dbProduct.findIndex((prod) => prod.id === product.id)
-        this.dbProduct[searchIndex] = product
+        this.dbProduct[searchIndex] = product;
 
         await fs.promises.writeFile(this.path, JSON.stringify({data: this.dbProduct })); 
+    }
+
+    async deleteProduct(product) {
+        await this.getProducts();
+        const searchIndex = this.dbProduct.findIndex((prod) => prod.id === product)
+        this.dbProduct[searchIndex].status = false //Se cambia el status del producto a false para que no quede activo.
+        await fs.promises.writeFile(this.path, JSON.stringify({data: this.dbProduct }));
     }
 
 }

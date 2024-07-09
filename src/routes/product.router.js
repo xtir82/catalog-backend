@@ -48,12 +48,17 @@ router.put('/:productId', async (req, res) => {
     await productManager.editProduct(productReplacement);
 
     res.status(201).json({
-        mensaje: 'Prueba POST Producto'
+        mensaje: 'Prueba PUT Producto'
     })
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:productId', async (req, res) => {
+    const productToDelete = parseInt(req.params.productId);
+    await productManager.deleteProduct(productToDelete);
 
+    res.status(201).json({
+        mensaje: 'Prueba DELETE Producto'
+    })
 })
 
 export default router;
