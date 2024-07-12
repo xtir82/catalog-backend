@@ -47,7 +47,7 @@ router.put('/:productId', async (req, res) => {
     }
     await productManager.editProduct(productReplacement);
 
-    res.status(201).json({
+    res.status(200).json({
         mensaje: 'Prueba PUT Producto'
     })
 })
