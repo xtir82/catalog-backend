@@ -7,12 +7,14 @@ import ProductRoute from './routes/product.router.js';
 
 //Middleware
 const app = express();
+const port = 8080;
+
 app.use(express.json()); //body-parse
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/product',  ProductRoute);
 app.use('/api/cart',  CartRoute);
 
-app.listen(8080, () => {
+app.listen(port, () => {
     console.log("Servidor iniciado")
 })
