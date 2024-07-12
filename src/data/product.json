@@ -1,1 +1,1 @@
-{"data":[{"id":1,"title":"Pollo Frito","description":"Pollo frito para freidora de aire","code":123123,"price":6,"status":false,"stock":40,"category":"Food"}]}
+{"data":[{"id":1,"title":"Pollo Frito","description":"Pollo frito para freidora de aire","code":123123,"price":6,"status":false,"stock":40,"category":"Food"},{"id":"8d7f64a8-d0bb-4def-b055-47ddb2f9a663","title":"Pizza Congelada","description":"Pizza Margarita para microondas","code":18293829,"price":3,"status":true,"stock":50,"category":"Food"}]}

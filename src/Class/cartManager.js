@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import { productManager } from '../routes/product.router.js';
+import { v4 as uuidv4 } from 'uuid';
 
 
 class CartManager {
@@ -11,7 +12,7 @@ cartId = 0;
     }
 
     cartFactory() {
-        const newCart = { id: this.setCartId(), product: [] }
+        const newCart = { id: uuidv4(), product: [] }
         return newCart
     }
 
@@ -62,12 +63,6 @@ cartId = 0;
         }
         await fs.promises.writeFile(this.path, JSON.stringify({ data: this.dbCart })); 
     }
-
-    setCartId() {
-        this.cartId = this.cartId + 1
-        return this.cartId
-    }
-
 }
 
 export default CartManager;

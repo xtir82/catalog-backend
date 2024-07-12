@@ -19,7 +19,7 @@ router.get('/:productId', async (req, res) => {
     const productId = parseInt(req.params.productId); //Convertimos el queryparams de string a number
     const productFound = await productManager.getProductById(productId);
 
-    res.status(201).json({
+    res.status(200).json({
         mensaje:'Se ha agregado el Producto',
         producto: productFound,
     })
@@ -56,7 +56,7 @@ router.delete('/:productId', async (req, res) => {
     const productToDelete = parseInt(req.params.productId);
     await productManager.deleteProduct(productToDelete);
 
-    res.status(201).json({
+    res.status(204).json({
         mensaje: 'Prueba DELETE Producto'
     })
 })
