@@ -15,7 +15,7 @@ router.get('/', async (req,res) => {
         res.status(404).send('Ops! hay un problema: ' + error);
     }*/
    //const {obj} = req.query; //Destructuramos
-    res.render('home', {
+    res.render('realtimeproducts', {
         productos: [],
     }) //Renderiza la vista
 })

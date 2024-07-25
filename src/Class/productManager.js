@@ -25,9 +25,9 @@ class ProductManager {
 
     async getProducts() {
         const list = await fs.promises.readFile(this.path, 'utf-8')
-        console.log(list)
+        //console.log(list)
         this.dbProduct = [... JSON.parse(list).data]
-        console.log(this.dbProduct)
+        //console.log(this.dbProduct)
         return [... this.dbProduct]
     }
 

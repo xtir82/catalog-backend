@@ -1,7 +1,10 @@
-//endpoint /api/realtimeproducts
+<!-- /api/realtimeproducts -->
 <div>
     <h1>Productos en Tiempo Real</h1>
-    <p>Nombre del Producto: {{name}}</p>
+    {{#each productos}}
+        <div>{{this.title}}</div>
+    {{/each}}
 </div>
 
+<script src="/socket.io/socket.io.js"></script>
 <script src="./js/index.js"></script>
