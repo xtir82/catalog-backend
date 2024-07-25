@@ -2,6 +2,7 @@ import express from "express";
 import { __dirname } from "./utils.js";
 import handlebars from "express-handlebars";
 import morgan from "morgan";
+import { Server } from "socket.io";
 
 //Routes
 import CartRoute from './routes/cart.router.js';
@@ -17,14 +18,16 @@ app.set('views', __dirname + '/views'); //Configuramos la ruta de las views
 app.set('view engine', 'handlebars');
 
 //Middleware
+app.use(express.static(__dirname + '/public'));
 app.use(express.json()); //body-parse
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
 
+
 app.use('/api/product',  ProductRoute);
 app.use('/api/cart',  CartRoute);
-app.use('/api/realTimeProducts', RealTimeProducts);
+app.use('/api/realtimeproducts', RealTimeProducts);
 
 app.listen(port, () => {
-    console.log("Servidor iniciado en puerto " + port)
+    console.log('Servidor iniciado en puerto ' + port)
 })
