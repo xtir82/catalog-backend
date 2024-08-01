@@ -7,6 +7,7 @@ import { Server } from "socket.io";
 //Routes
 import CartRoute from './routes/cart.router.js';
 import ProductRoute from './routes/product.router.js';
+import Home from './routes/home.router.js'
 import RealTimeProducts from './routes/realtimeproducts.router.js';
 
 const app = express();
@@ -26,8 +27,10 @@ app.use(morgan("tiny"));
 //Enrutadores
 app.use('/api/product',  ProductRoute);
 app.use('/api/cart',  CartRoute);
-app.use('/api/realtimeproducts', RealTimeProducts);
+app.use('/home',  Home);
+app.use('/realtimeproducts', RealTimeProducts);
 
+//
 const httpServer = app.listen(port, () => {
     console.log('Servidor iniciado en puerto ' + port)
 })
