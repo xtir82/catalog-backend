@@ -1,4 +1,6 @@
 //const titleInput = document.querySelector('#title');
+
+const socket = io(); 
 const newProdBtn = document.querySelector('#newProdBtn');
 
 //Form Inputs
@@ -9,6 +11,7 @@ const productForm = {
     title: '',
 }
 
+//Evento para modal de nuevo Producto
 newProdBtn.addEventListener('click', (event) => {
     Swal.fire({
         title: 'Agregar Nuevo Producto',
@@ -53,16 +56,18 @@ newProdBtn.addEventListener('click', (event) => {
             if (!title || !description || !code || !price || !stock || !category ) {
               Swal.showValidationMessage(`Por favor complete todos los campos`);
             }
-            return { title, description, code, price, stock, category };
+
+            const newProductTest = { title, description, code, price, stock, category };
+            console.log ({ title, description, code, price, stock, category });
           }
       })
 })
 
-titleInput.addEventListener('input', (event) => {
+/*titleInput.addEventListener('input', (event) => {
     product.title = event.target.value; //Obtiene el valor de input title
-})
+})*/
 
-sendButton.addEventListener('click', () => {
+/*sendButton.addEventListener('click', () => {
     fetch('http:localhost:8080/api/product', {
         method: 'POST',
         body: JSON.stringify(productForm),
@@ -72,7 +77,7 @@ sendButton.addEventListener('click', () => {
     })
     .then(res => res.json())
     .then(result => console.log(result))
-})
+})*/
 
 socket.on('answer', (data) => {
     console.log(data);

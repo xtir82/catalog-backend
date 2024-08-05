@@ -57,7 +57,8 @@ class ProductManager {
     async deleteProduct(product) {
         await this.getProducts();
         const searchIndex = this.dbProduct.findIndex((prod) => prod.id === product)
-        this.dbProduct[searchIndex].active = false //Se cambia el status del producto a false para que no quede activo.
+        this.dbProduct.splice(searchIndex,1);
+        //this.dbProduct[searchIndex].active = false //Se cambia el status del producto a false para que no quede activo.
         await fs.promises.writeFile(this.path, JSON.stringify({data: this.dbProduct }));
     }
 }
