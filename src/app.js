@@ -30,13 +30,21 @@ app.use('/api/cart',  CartRoute);
 app.use('/home',  Home);
 app.use('/realtimeproducts', RealTimeProducts);
 
-//
+//Creamos la variable httpServer y instanciamos para que funcione con sockets
 const httpServer = app.listen(port, () => {
-    console.log('Servidor iniciado en puerto ' + port)
-})
+    console.log('Server started on port ' + port)
+});
 
-const socketServer = new Server(httpServer);
+export const socketServer = new Server(httpServer);
 
 socketServer.on('connection', (socket) => {
     console.log('New user connected');
-} )
+
+    /*
+    socket.on('message', (data) => {
+        console.log('Evento mensaje con data: ', data)
+    })
+
+    socket.emit('answer', ' mensaje de respuesta desde el servidor')
+    */
+} );

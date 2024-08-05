@@ -1,10 +1,12 @@
 import { Router } from "express";
+import { productManager } from "./product.router.js";
 import { __dirname } from "../utils.js";
+import { socketServer } from "../app.js";
 
 const router = Router();
 
 //Rutas
-router.get('/', async (req,res) => {
+/*router.get('/', async (req,res) => {
     /*try {
         const respuesta = await cartManager.getCarts();
         res.status(200).json({
@@ -13,14 +15,36 @@ router.get('/', async (req,res) => {
         })
     } catch(error) {
         res.status(404).send('Ops! hay un problema: ' + error);
-    }*/
+    }
    //const {obj} = req.query; //Destructuramos
     res.render('realtimeproducts', {
         productos: [],
     }) //Renderiza la vista
+})*/
+
+router.get('/', async (req,res) => {
+    /*try {
+        const respuesta = await productManager.getProducts();
+        res.render('home', {
+            productos: 
+        })
+        res.status(200).json({
+            mensaje:'Lista de Productos Obtenida',
+            respuesta: respuesta
+        })
+    } catch(error) {
+        res.status(404).send('Ops! hay un problema: ' + error);
+    }*/
+    const respuesta = await productManager.getProducts();
+    res.render('realtimeproducts', {
+            productos: respuesta,
+        })
 })
 
 router.post('/', async (req,res) => {
+    //aca se debe emitir
+    socketServer.emit();
+    
     try {
         const productToAdd = req.body;
         await productManager.addProduct(productToAdd);
