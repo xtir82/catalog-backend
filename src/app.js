@@ -10,6 +10,8 @@ import ProductRoute from './routes/product.router.js';
 import Home from './routes/home.router.js'
 import RealTimeProducts from './routes/realtimeproducts.router.js';
 
+
+
 const app = express();
 const port = 8080;
 
@@ -36,15 +38,26 @@ const httpServer = app.listen(port, () => {
 });
 
 export const socketServer = new Server(httpServer);
+export let socketDB = [];
 
 socketServer.on('connection', (socket) => {
     console.log('New user connected');
+    
+    //Recibimos la data del producto *1
+    socket.on('newProduct', (data) => {
+        socketDB.push(data);
+
+        //Emitimos al servidor la base de datos
+        socketServer.emit('socketDB', socketDB);
+    })
 
     /*
     socket.on('message', (data) => {
-        console.log('Evento mensaje con data: ', data)
-    })
+        console.log('Evento mensaje con data: ', data);
+        socketDB.push(data);
 
-    socket.emit('answer', ' mensaje de respuesta desde el servidor')
-    */
+        io.emit('socketDB', socketDB);
+    })*/
+
+    
 } );

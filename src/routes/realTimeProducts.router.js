@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { productManager } from "./product.router.js";
 import { __dirname } from "../utils.js";
-import { socketServer } from "../app.js";
+import { socketDB, socketServer } from "../app.js";
+
 
 const router = Router();
 
 //Rutas
-/*router.get('/', async (req,res) => {
+router.get('/', async (req,res) => {
     /*try {
         const respuesta = await cartManager.getCarts();
         res.status(200).json({
@@ -19,11 +20,16 @@ const router = Router();
    //const {obj} = req.query; //Destructuramos
     res.render('realtimeproducts', {
         productos: [],
-    }) //Renderiza la vista
-})*/
+    }) //Renderiza la vista*/
+    const respuesta = await productManager.getProducts()
+    res.render('realtimeproducts', {
+        
 
-router.get('/', async (req,res) => {
-    /*try {
+    })
+})
+
+/*router.get('/', async (req,res) => {
+    try {
         const respuesta = await productManager.getProducts();
         res.render('home', {
             productos: 
@@ -34,12 +40,12 @@ router.get('/', async (req,res) => {
         })
     } catch(error) {
         res.status(404).send('Ops! hay un problema: ' + error);
-    }*/
+    }
     const respuesta = await productManager.getProducts();
     res.render('realtimeproducts', {
             productos: respuesta,
         })
-})
+})*/
 
 router.post('/', async (req,res) => {
     //aca se debe emitir

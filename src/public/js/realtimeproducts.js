@@ -1,7 +1,13 @@
 //const titleInput = document.querySelector('#title');
 
+//Configuracion para escuchar el server
 const socket = io(); 
+
+socket.on()
+
 const newProdBtn = document.querySelector('#newProdBtn');
+
+let product = '';
 
 //Form Inputs
 let titleInput;
@@ -28,6 +34,7 @@ newProdBtn.addEventListener('click', (event) => {
         <input type="text" id="description" class="swal2-input" placeholder="Descripcion" required>
         <input type="number" id="code" class="swal2-input" placeholder="Codigo" required>
         <input type="number" id="price" class="swal2-input" placeholder="Precio" required>
+        <input type="text" id="status" class="swal2-input" placeholder="Status" required>
         <input type="number" id="stock" class="swal2-input" placeholder="Inventario" required>
         <input type="text" id="category" class="swal2-input" placeholder="Categoria" required>
         `,
@@ -37,12 +44,16 @@ newProdBtn.addEventListener('click', (event) => {
             descriptionInput = popup.querySelector('#description');
             codeInput = popup.querySelector('#code');
             priceInput = popup.querySelector('#price');
+            statusInput = popup.querySelector('#status');
             stockInput = popup.querySelector('#stock');
             categoryInput = popup.querySelector('#category');
+
+            //Shorcu para que se presione Confirmar al presionar 'Enter'
             titleInput.onkeyup = (event) => event.key === 'Enter' && Swal.clickConfirm();
             descriptionInput.onkeyup = (event) => event.key === 'Enter' && Swal.clickConfirm();
             codeInput.onkeyup = (event) => event.key === 'Enter' && Swal.clickConfirm();
             priceInput.onkeyup = (event) => event.key === 'Enter' && Swal.clickConfirm();
+            statusInput.onkeyup = (event) => event.key === 'Enter' && Swal.clickConfirm();
             stockInput.onkeyup = (event) => event.key === 'Enter' && Swal.clickConfirm();
             categoryInput.onkeyup = (event) => event.key === 'Enter' && Swal.clickConfirm();
           },
@@ -51,16 +62,22 @@ newProdBtn.addEventListener('click', (event) => {
             const description = document.querySelector('#description').value;
             const code = document.querySelector('#code').value;
             const price = document.querySelector('#price').value;
+            const status = document.querySelector('#status').value;
             const stock = document.querySelector('#stock').value;
             const category = document.querySelector('#category').value;
-            if (!title || !description || !code || !price || !stock || !category ) {
+            if (!title || !description || !code || !price || !price || !stock || !category ) {
               Swal.showValidationMessage(`Por favor complete todos los campos`);
             }
-
-            const newProductTest = { title, description, code, price, stock, category };
-            console.log ({ title, description, code, price, stock, category });
+            return { title, description, code, price, status, stock, category };
           }
-      })
+      }).then((result) => {
+        //console.log ('1' + result.value); //Probando si tenemos los datos para pasarlos por un emit
+        
+        //Emitimos la data del producto *1
+        product = result.value;
+        socket.emit('newProduct', product);
+
+        })
 })
 
 /*titleInput.addEventListener('input', (event) => {
@@ -81,5 +98,27 @@ newProdBtn.addEventListener('click', (event) => {
 
 socket.on('answer', (data) => {
     console.log(data);
+})
+
+
+socket.on('socketDB', (data) => {
+    const productContainer = document.querySelector('#productContainer');
+    console.log(data);
+    //Vaciamos el contenedor
+    productContainer.innerHTML = '';
+
+    //Llenamos el contenedor
+    data.forEach((product) => {
+        //Creamos los elementos
+        const div = document.createElement('div');
+        const title = document.createElement('p');
+
+        //Asignamos Valores
+        title.innerText = product.title;
+
+        //Posicionamos
+        div.appendChild(title);
+        productContainer.appendChild(div);
+    })
 })
 
