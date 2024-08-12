@@ -38,7 +38,7 @@ const httpServer = app.listen(port, () => {
 });
 
 export const socketServer = new Server(httpServer);
-export let socketDB = [];
+export const socketDB = [];
 
 socketServer.on('connection', (socket) => {
     console.log('New user connected');
