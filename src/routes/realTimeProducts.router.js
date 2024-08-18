@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { productManager } from "./product.router.js";
 import { __dirname } from "../utils.js";
-import { socketDB, socketServer } from "../app.js";
+import { socketServer } from "../app.js";
 
 
 const router = Router();
@@ -21,11 +21,7 @@ router.get('/', async (req,res) => {
     res.render('realtimeproducts', {
         productos: [],
     }) //Renderiza la vista*/
-    const respuesta = await productManager.getProducts()
-    res.render('realtimeproducts', {
-        
-
-    })
+    res.render( 'realtimeproducts', {} )
 })
 
 /*router.get('/', async (req,res) => {

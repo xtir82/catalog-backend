@@ -6,7 +6,7 @@ import { Server } from "socket.io";
 
 //Routes
 import CartRoute from './routes/cart.router.js';
-import ProductRoute from './routes/product.router.js';
+import ProductRoute, { productManager } from './routes/product.router.js';
 import Home from './routes/home.router.js'
 import RealTimeProducts from './routes/realtimeproducts.router.js';
 
@@ -38,17 +38,19 @@ const httpServer = app.listen(port, () => {
 });
 
 export const socketServer = new Server(httpServer);
-export const socketDB = [];
 
-socketServer.on('connection', (socket) => {
+socketServer.on('connection', async (socket) => {
     console.log('New user connected');
+
+    const realtimeDB = await productManager.getProducts();
+    socketServer.emit('socketDB', realtimeDB);
     
     //Recibimos la data del producto *1
     socket.on('newProduct', (data) => {
-        socketDB.push(data);
+        realtimeDB.push(data);
 
         //Emitimos al servidor la base de datos
-        socketServer.emit('socketDB', socketDB);
+        socketServer.emit('socketDB', realtimeDB);
     })
 
     /*

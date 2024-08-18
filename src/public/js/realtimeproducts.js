@@ -110,15 +110,22 @@ socket.on('socketDB', (data) => {
     //Llenamos el contenedor
     data.forEach((product) => {
         //Creamos los elementos
-        const div = document.createElement('div');
-        const title = document.createElement('p');
+        const externaldiv = document.createElement('div');
+        const internaldiv = document.createElement('div');
+        const title = document.createElement('h3');
 
         //Asignamos Valores
         title.innerText = product.title;
 
         //Posicionamos
-        div.appendChild(title);
-        productContainer.appendChild(div);
+        externaldiv.appendChild(internaldiv);
+        internaldiv.appendChild(title)
+        productContainer.appendChild(externaldiv);
+
+        //Agregamos CSS
+        externaldiv.className = "card";
+        internaldiv.className = "card-body";
+        title.className = "card-title";
     })
 })
 
