@@ -113,19 +113,39 @@ socket.on('socketDB', (data) => {
         const externaldiv = document.createElement('div');
         const internaldiv = document.createElement('div');
         const title = document.createElement('h3');
+        const description = document.createElement('p');
+        const category = document.createElement('p');
+        const stock = document.createElement('p');
+        const price = document.createElement('p');
+        const delbtn = document.createElement('button');
 
         //Asignamos Valores
         title.innerText = product.title;
+        description.innerText = 'Descripcion: ' + product.description;
+        category.innerText = 'Categoria: ' + product.category;
+        stock.innerText = 'Inventario: ' + product.stock;
+        price.innerText = 'Precio: ' + product.price;
+        delbtn.innerText = 'Eliminar';
 
         //Posicionamos
         externaldiv.appendChild(internaldiv);
         internaldiv.appendChild(title)
+        internaldiv.appendChild(description)
+        internaldiv.appendChild(category)
+        internaldiv.appendChild(stock)
+        internaldiv.appendChild(price)
+        internaldiv.appendChild(delbtn)
         productContainer.appendChild(externaldiv);
 
         //Agregamos CSS
         externaldiv.className = "card";
         internaldiv.className = "card-body";
         title.className = "card-title";
+        description.className = "card-text";
+        category.className = "card-text";
+        stock.className = "card-text";
+        price.className = "card-text";
+        delbtn.className = "btn btn-danger";
     })
 })
 

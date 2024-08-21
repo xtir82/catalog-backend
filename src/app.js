@@ -9,6 +9,7 @@ import CartRoute from './routes/cart.router.js';
 import ProductRoute, { productManager } from './routes/product.router.js';
 import Home from './routes/home.router.js'
 import RealTimeProducts from './routes/realtimeproducts.router.js';
+import mongoose from "mongoose";
 
 
 
@@ -51,15 +52,11 @@ socketServer.on('connection', async (socket) => {
 
         //Emitimos al servidor la base de datos
         socketServer.emit('socketDB', realtimeDB);
-    })
-
-    /*
-    socket.on('message', (data) => {
-        console.log('Evento mensaje con data: ', data);
-        socketDB.push(data);
-
-        io.emit('socketDB', socketDB);
-    })*/
-
-    
+    })    
 } );
+
+mongoose.connect('mongodb+srv://agcl82:wQpqP9TJTk2qWZKH@catalog-app.vd4fk.mongodb.net/?retryWrites=true&w=majority&appName=catalog-app',
+    { dbName: 'productos' })
+    .then( () => {
+        console.log('Connected to DB')
+    })
